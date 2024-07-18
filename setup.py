@@ -25,7 +25,7 @@ setuptools.setup(
         ],
     },
     project_urls={
-        "Bug Tracker": "https://github.com/polymarket/python-order-utils",
+        "Bug Tracker": "https://github.com/Polymarket/poly-py-eip712-structs",
     },
     classifiers=[
         "Programming Language :: Python :: 3",
