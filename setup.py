@@ -1,83 +1,37 @@
-import shlex
-import sys
-from pathlib import Path
+import setuptools
 
-from setuptools import setup, find_packages
-from setuptools.command.test import test as TestCommand
+with open("README.md", "r", encoding="utf-8") as fh:
+    long_description = fh.read()
 
-
-NAME = 'eip712-structs'
-VERSION = '1.1.0'
-
-install_requirements = [
-    'eth-utils>=1.4.0',
-    'pysha3>=1.0.2',
-]
-
-test_requirements = [
-    'coveralls==1.8.0',
-    'pytest==4.6.2',
-    'pytest-cov==2.7.1',
-    'web3==4.9.2',
-]
-
-
-def get_file_text(filename):
-    file_path = Path(__file__).parent / filename
-    if not file_path.exists():
-        return ''
-    else:
-        file_text = file_path.read_text().strip()
-        return file_text
-
-
-long_description = get_file_text('README.md')
-
-
-class PyTest(TestCommand):
-    user_options = [("pytest-args=", "a", "Arguments to pass to pytest")]
-
-    def initialize_options(self):
-        TestCommand.initialize_options(self)
-        self.pytest_args = ""
-
-    def run_tests(self):
-        # import here, cause outside the eggs aren't loaded
-        import pytest
-
-        errno = pytest.main(shlex.split(self.pytest_args))
-        sys.exit(errno)
-
-
-class CoverallsCommand(TestCommand):
-    description = 'Run the coveralls command'
-    user_options = [("coveralls-args=", "a", "Arguments to pass to coveralls")]
-
-    def initialize_options(self):
-        TestCommand.initialize_options(self)
-        self.coveralls_args = ""
-
-    def run_tests(self):
-        import coveralls.cli
-        errno = coveralls.cli.main(shlex.split(self.coveralls_args))
-        sys.exit(errno)
-
-
-setup(
-    name=NAME,
-    version=VERSION,
-    author='AJ Grubbs',
-    packages=find_packages(),
-    install_requires=install_requirements,
-    tests_require=test_requirements,
-    cmdclass={
-        "test": PyTest,
-        "coveralls": CoverallsCommand,
-    },
-    description='A python library for EIP712 objects',
+setuptools.setup(
+    name="poly_eip712_structs",
+    version="0.0.1",
+    author="Polymarket Engineering",
+    author_email="engineering@polymarket.com",
+    maintainer="Polymarket Engineering",
+    maintainer_email="engineering@polymarket.com",
+    description="A python library for EIP712 objects",
     long_description=long_description,
-    long_description_content_type='text/markdown',
-    license='MIT',
-    keywords='ethereum eip712 solidity',
-    url='https://github.com/ConsenSys/py-eip712-structs',
+    long_description_content_type="text/markdown",
+    url="https://github.com/Polymarket/poly-py-eip712-structs",
+    install_requires=[
+        "eth-utils>=4.1.1",
+        "pycryptodome>=3.20.0",
+        "pytest"
+    ],
+    package_data={
+        "py_order_utils": [
+            "abi/*.json",
+        ],
+    },
+    project_urls={
+        "Bug Tracker": "https://github.com/polymarket/python-order-utils",
+    },
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+    ],
+    packages=setuptools.find_packages(),
+    python_requires=">=3.9.10",
 )

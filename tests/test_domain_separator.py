@@ -1,19 +1,19 @@
 import os
 
 import pytest
-from eth_utils.crypto import keccak
+from eth_utils import keccak
 
-import eip712_structs
-from eip712_structs import make_domain, EIP712Struct, String
+import poly_eip712_structs
+from poly_eip712_structs import make_domain, EIP712Struct, String
 
 
 @pytest.fixture
 def default_domain_manager():
     # This fixture can be called to ensure we cleanup our default domain var before/after tests
-    current_value = eip712_structs.default_domain
-    eip712_structs.default_domain = None
+    current_value = poly_eip712_structs.default_domain
+    poly_eip712_structs.default_domain = None
     yield
-    eip712_structs.default_domain = current_value
+    poly_eip712_structs.default_domain = current_value
 
 
 def test_domain_sep_create():
@@ -48,7 +48,7 @@ def test_domain_sep_types():
 
 
 def test_default_domain(default_domain_manager):
-    assert eip712_structs.default_domain is None
+    assert poly_eip712_structs.default_domain is None
 
     class Foo(EIP712Struct):
         s = String()
@@ -68,7 +68,7 @@ def test_default_domain(default_domain_manager):
     explicit_bytes = foo.signable_bytes(domain)
 
     # Setting it lets us forgo providing it
-    eip712_structs.default_domain = domain
+    poly_eip712_structs.default_domain = domain
     implicit_msg = foo.to_message()
     implicit_bytes = foo.signable_bytes()
 

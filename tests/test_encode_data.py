@@ -2,10 +2,10 @@ import os
 import random
 import string
 
-from eth_utils.crypto import keccak
+from eth_utils import keccak
 import pytest
 
-from eip712_structs import Address, Array, Boolean, Bytes, Int, String, Uint, EIP712Struct, make_domain
+from poly_eip712_structs import Address, Array, Boolean, Bytes, Int, String, Uint, EIP712Struct, make_domain
 
 
 def signed_min_max(bits):

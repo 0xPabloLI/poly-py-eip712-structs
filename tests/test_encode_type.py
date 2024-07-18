@@ -1,4 +1,4 @@
-from eip712_structs import Address, Array, EIP712Struct, Int, String, Uint
+from poly_eip712_structs import Address, Array, EIP712Struct, Int, String, Uint
 
 
 def test_empty_struct():

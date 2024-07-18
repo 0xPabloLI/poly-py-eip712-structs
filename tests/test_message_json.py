@@ -3,7 +3,7 @@ import os
 
 import pytest
 
-from eip712_structs import EIP712Struct, String, make_domain, Bytes
+from poly_eip712_structs import EIP712Struct, String, make_domain, Bytes
 
 
 def test_flat_struct_to_message():

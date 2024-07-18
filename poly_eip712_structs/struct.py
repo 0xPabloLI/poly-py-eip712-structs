@@ -7,8 +7,8 @@ from typing import List, Tuple, NamedTuple
 
 from eth_utils.crypto import keccak
 
-import eip712_structs
-from eip712_structs.types import Array, EIP712Type, from_solidity_type, BytesJSONEncoder
+import poly_eip712_structs
+from poly_eip712_structs.types import Array, EIP712Type, from_solidity_type, BytesJSONEncoder
 
 
 class OrderedAttributesMeta(type):
@@ -143,7 +143,7 @@ class EIP712Struct(EIP712Type, metaclass=OrderedAttributesMeta):
 
     @staticmethod
     def _assert_domain(domain):
-        result = domain or eip712_structs.default_domain
+        result = domain or poly_eip712_structs.default_domain
         if not result:
             raise ValueError('Domain must be provided, or eip712_structs.default_domain must be set.')
         return result

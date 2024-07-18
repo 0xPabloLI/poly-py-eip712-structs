@@ -1,4 +1,4 @@
-import eip712_structs
+import poly_eip712_structs
 
 
 def make_domain(name=None, version=None, chainId=None, verifyingContract=None, salt=None):
@@ -10,24 +10,24 @@ def make_domain(name=None, version=None, chainId=None, verifyingContract=None, s
     if all(i is None for i in [name, version, chainId, verifyingContract, salt]):
         raise ValueError('At least one argument must be given.')
 
-    class EIP712Domain(eip712_structs.EIP712Struct):
+    class EIP712Domain(poly_eip712_structs.EIP712Struct):
         pass
 
     kwargs = dict()
     if name is not None:
-        EIP712Domain.name = eip712_structs.String()
+        EIP712Domain.name = poly_eip712_structs.String()
         kwargs['name'] = str(name)
     if version is not None:
-        EIP712Domain.version = eip712_structs.String()
+        EIP712Domain.version = poly_eip712_structs.String()
         kwargs['version'] = str(version)
     if chainId is not None:
-        EIP712Domain.chainId = eip712_structs.Uint(256)
+        EIP712Domain.chainId = poly_eip712_structs.Uint(256)
         kwargs['chainId'] = int(chainId)
     if verifyingContract is not None:
-        EIP712Domain.verifyingContract = eip712_structs.Address()
+        EIP712Domain.verifyingContract = poly_eip712_structs.Address()
         kwargs['verifyingContract'] = verifyingContract
     if salt is not None:
-        EIP712Domain.salt = eip712_structs.Bytes(32)
+        EIP712Domain.salt = poly_eip712_structs.Bytes(32)
         kwargs['salt'] = salt
 
     return EIP712Domain(**kwargs)
